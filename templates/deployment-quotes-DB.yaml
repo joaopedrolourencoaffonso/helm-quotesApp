@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.database.DEPLOYMENT_NAME }}
+spec:
+  replicas: {{ .Values.database.DEPLOYMENT_REPLICAS }}
+  selector:
+    matchLabels:
+      app: quotes-db
+  template:
+    metadata:
+      labels:
+        app: quotes-db
+    spec:
+      containers:
+      - name: quotes-db-container
+        image: clusterminator/quotes-db:{{ .Values.database.DEPLOYMENT_IMAGE_VERSION }}
+        ports:
+        - containerPort: {{ .Values.database.DEPLOYMENT_CONTAINER_PORT }}
+        volumeMounts:
+        - name: quotes-db-volume
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: quotes-db-volume
+        persistentVolumeClaim:
+          claimName: quotes-db-pvc
