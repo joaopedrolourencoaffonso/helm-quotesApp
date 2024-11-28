@@ -1,19 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mainpage-api-deployment
+  name: {{ .Values.mainpage.DEPLOYMENT_NAME }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.mainpage.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-      app: mainpage-api
+    {{- range .Values.mainpage.DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   template:
     metadata:
       labels:
-        app: mainpage-api
+      {{- range .Values.mainpage.DEPLOYMENT_LABELS }}
+        {{ .name }}: {{ .value }}
+      {{- end}}
     spec:
       containers:
-      - name: mainpage-api-container
-        image: clusterminator/mainpage-api:1.0
+      - name: {{ .Values.mainpage.DEPLOYMENT_CONTAINER_NAME }}
+        image: clusterminator/mainpage-api:{{ .Values.mainpage.DEPLOYMENT_IMAGE_VERSION }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.mainpage.DEPLOYMENT_CONTAINERPORT }}

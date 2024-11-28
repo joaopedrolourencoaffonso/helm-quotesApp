@@ -7,6 +7,6 @@ spec:
   selector:
     app: addget-api
   ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30001
+    - port: {{ .Values.addget.NODEPORT_PORT }}
+      targetPort: {{ .Values.addget.NODEPORT_PORT }}
+      nodePort: {{ .Values.addget.NODEPORT_NODEPORT }}

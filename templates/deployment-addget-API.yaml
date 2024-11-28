@@ -1,22 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: addget-api-deployment
+  name: {{ .Values.addget.DEPLOYMENT_NAME }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.addget.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-      app: addget-api
+    {{- range .Values.addget.DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   template:
     metadata:
       labels:
-        app: addget-api
+      {{- range .Values.addget.DEPLOYMENT_LABELS }}
+        {{ .name }}: {{ .value }}
+      {{- end}}
     spec:
       containers:
-      - name: addget-api-container
-        image: clusterminator/addget-api:2.0
+      - name: {{ .Values.addget.DEPLOYMENT_CONTAINER_NAME }}
+        image: clusterminator/addget-api:{{ .Values.addget.DEPLOYMENT_IMAGE_VERSION }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.addget.DEPLOYMENT_CONTAINER_PORT }}
         envFrom:
         - configMapRef:
             name: quotes-api-config

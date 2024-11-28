@@ -5,6 +5,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: images-api
+  {{- range .Values.imagesapi.CLUSTER_IP_SELECTORS }}
+    {{ .name }}: {{ .value }}
+  {{- end }}
   ports:
-    - port: 8080
+    - port: {{ .Values.imagesapi.CLUSTER_IP_PORT }}

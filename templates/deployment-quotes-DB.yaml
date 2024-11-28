@@ -6,11 +6,15 @@ spec:
   replicas: {{ .Values.database.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-      app: quotes-db
+    {{- range .Values.database.DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   template:
     metadata:
       labels:
-        app: quotes-db
+      {{- range .Values.database.DEPLOYMENT_LABELS }}
+        {{ .name }}: {{ .value }}
+      {{- end}}
     spec:
       containers:
       - name: quotes-db-container

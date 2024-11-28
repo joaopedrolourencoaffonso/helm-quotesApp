@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: quotes-api-config
 data:
-  DATABASE_HOST: {{ .Values.database.DATABASE_HOST }}
-  DATABASE_USER: {{ .Values.database.DATABASE_USER }}
-  DATABASE_PASSWORD: {{ .Values.database.DATABASE_PASSWORD }}
-  DATABASE_NAME: {{ .Values.database.DATABASE_NAME }}
+{{- range .Values.database.CONFIGMAP_ENV }}
+  {{ .name }}: {{ .value }}
+{{- end }}

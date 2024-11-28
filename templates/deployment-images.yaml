@@ -1,19 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: images-api-deployment
+  name: {{ .Values.imagesapi.DEPLOYMENT_NAME }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.imagesapi.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-      app: images-api
+    {{- range .Values.imagesapi.DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   template:
     metadata:
       labels:
-        app: images-api
+      {{- range .Values.imagesapi.DEPLOYMENT_LABELS }}
+        {{ .name }}: {{ .value }}
+      {{- end}}
     spec:
       containers:
       - name: images-api-container
-        image: clusterminator/images-api:latest
+        image: clusterminator/images-api:{{ .Values.imagesapi.DEPLOYMENT_IMAGE_VERSION }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.imagesapi.DEPLOYMENT_PORT }}

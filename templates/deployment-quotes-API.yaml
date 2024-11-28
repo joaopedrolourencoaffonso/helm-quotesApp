@@ -1,22 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quotes-api-deployment
+  name: {{ .Values.quotesapi.DEPLOYMENT_NAME }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.quotesapi.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-      app: quotes-api
+    {{- range .Values.quotesapi.DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   template:
     metadata:
       labels:
-        app: quotes-api
+      {{- range .Values.quotesapi.DEPLOYMENT_LABELS }}
+        {{ .name }}: {{ .value }}
+      {{- end}}
     spec:
       containers:
       - name: quotes-api-container
-        image: clusterminator/quotes-api:3.0
+        image: clusterminator/quotes-api:{{ .Values.quotesapi.DEPLOYMENT_IMAGE_VERSION }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.quotesapi.DEPLOYMENT_REPLICAS }}
         envFrom:
         - configMapRef:
             name: quotes-api-config
