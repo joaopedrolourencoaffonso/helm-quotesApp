@@ -6,13 +6,13 @@ spec:
   replicas: {{ .Values.imagesapi.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-    {{- range .Values.imagesapi.DEPLOYMENT_LABELS }}
+    {{- range .Values.imagesapi.CLUSTER_IP_DEPLOYMENT_LABELS }}
       {{ .name }}: {{ .value }}
     {{- end}}
   template:
     metadata:
       labels:
-      {{- range .Values.imagesapi.DEPLOYMENT_LABELS }}
+      {{- range .Values.imagesapi.CLUSTER_IP_DEPLOYMENT_LABELS }}
         {{ .name }}: {{ .value }}
       {{- end}}
     spec:

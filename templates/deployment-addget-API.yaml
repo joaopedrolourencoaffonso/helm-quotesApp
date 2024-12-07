@@ -6,16 +6,20 @@ spec:
   replicas: {{ .Values.addget.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-    {{- range .Values.addget.DEPLOYMENT_LABELS }}
+    {{- range .Values.addget.NODEPORT_DEPLOYMENT_LABELS }}
       {{ .name }}: {{ .value }}
     {{- end}}
   template:
     metadata:
       labels:
-      {{- range .Values.addget.DEPLOYMENT_LABELS }}
+      {{- range .Values.addget.NODEPORT_DEPLOYMENT_LABELS }}
         {{ .name }}: {{ .value }}
       {{- end}}
     spec:
+      initContainers:
+      - name: wait-for-db
+        image: busybox
+        command: ['sh', '-c', 'sleep 10']
       containers:
       - name: {{ .Values.addget.DEPLOYMENT_CONTAINER_NAME }}
         image: clusterminator/addget-api:{{ .Values.addget.DEPLOYMENT_IMAGE_VERSION }}

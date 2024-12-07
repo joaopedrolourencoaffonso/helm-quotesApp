@@ -14,7 +14,7 @@ database:
   DEPLOYMENT_REPLICAS: 1
   DEPLOYMENT_CONTAINER_PORT: 8080
   DEPLOYMENT_IMAGE_VERSION: "1.0"
-  DEPLOYMENT_LABELS:
+  CLUSTER_IP_DEPLOYMENT_LABELS:
   - name: app
     value: quotes-db
   QUOTES_DB_PVC_NAME: quotes-db-pvc
@@ -27,7 +27,7 @@ addget:
   DEPLOYMENT_REPLICAS: 1
   DEPLOYMENT_CONTAINER_PORT: 8080
   DEPLOYMENT_CONTAINER_NAME: addget-api-container
-  DEPLOYMENT_LABELS:
+  NODEPORT_DEPLOYMENT_LABELS:
   - name: app
     value: addget-api
   NODEPORT_NAME: nodeport-addget-api
@@ -41,7 +41,7 @@ quotesapi:
   DEPLOYMENT_REPLICAS: 1
   DEPLOYMENT_CONTAINER_PORT: 8080
   DEPLOYMENT_IMAGE_VERSION: "3.0"
-  DEPLOYMENT_LABELS:
+  CLUSTER_IP_DEPLOYMENT_LABELS:
   - name: app
     value: quotes-api
 mainpage:
@@ -54,20 +54,17 @@ mainpage:
   DEPLOYMENT_REPLICAS: 1
   DEPLOYMENT_IMAGE_VERSION: "1.0"
   DEPLOYMENT_CONTAINERPORT: 8080
-  DEPLOYMENT_LABELS:
+  NODEPORT_DEPLOYMENT_LABELS:
   - name: app
     value: mainpage-api
 imagesapi:
-  CLUSTER_IP_NAME: images-api #continuar
+  CLUSTER_IP_NAME: images-api
   CLUSTER_IP_PORT: 8080
-  CLUSTER_IP_SELECTORS:
+  CLUSTER_IP_DEPLOYMENT_LABELS:
   - name: app
     value: images-api
   DEPLOYMENT_NAME: images-api-deployment
   DEPLOYMENT_REPLICAS: 1
   DEPLOYMENT_IMAGE_VERSION: "latest"
   DEPLOYMENT_PORT: 8080
-  DEPLOYMENT_LABELS:
-  - name: app
-    value: images-api
   

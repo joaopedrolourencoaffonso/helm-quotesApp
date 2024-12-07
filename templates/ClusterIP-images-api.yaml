@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-  {{- range .Values.imagesapi.CLUSTER_IP_SELECTORS }}
+  {{- range .Values.imagesapi.CLUSTER_IP_DEPLOYMENT_LABELS }}
     {{ .name }}: {{ .value }}
   {{- end }}
   ports:

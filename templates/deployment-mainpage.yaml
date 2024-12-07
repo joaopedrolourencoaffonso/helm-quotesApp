@@ -6,13 +6,13 @@ spec:
   replicas: {{ .Values.mainpage.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-    {{- range .Values.mainpage.DEPLOYMENT_LABELS }}
+    {{- range .Values.mainpage.NODEPORT_DEPLOYMENT_LABELS }}
       {{ .name }}: {{ .value }}
     {{- end}}
   template:
     metadata:
       labels:
-      {{- range .Values.mainpage.DEPLOYMENT_LABELS }}
+      {{- range .Values.mainpage.NODEPORT_DEPLOYMENT_LABELS }}
         {{ .name }}: {{ .value }}
       {{- end}}
     spec:

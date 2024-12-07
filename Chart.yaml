@@ -2,5 +2,5 @@ apiVersion: v2
 name: quotes-app
 description: Uma aplicação simples baseada em flask para demonstrar a utilização do helm
 type: application
-version: 0.0.3
+version: 1.0.0
 appVersion: 1.0.0

@@ -5,7 +5,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: mainpage-api
+  {{- range .Values.mainpage.NODEPORT_DEPLOYMENT_LABELS }}
+    {{ .name }}: {{ .value }}
+  {{- end}}
   ports:
     - port: {{ .Values.mainpage.NODEPORT_PORT }}
       targetPort: {{ .Values.mainpage.NODEPORT_PORT_TARGET }}

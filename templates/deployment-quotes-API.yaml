@@ -6,16 +6,20 @@ spec:
   replicas: {{ .Values.quotesapi.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-    {{- range .Values.quotesapi.DEPLOYMENT_LABELS }}
+    {{- range .Values.quotesapi.CLUSTER_IP_DEPLOYMENT_LABELS }}
       {{ .name }}: {{ .value }}
     {{- end}}
   template:
     metadata:
       labels:
-      {{- range .Values.quotesapi.DEPLOYMENT_LABELS }}
+      {{- range .Values.quotesapi.CLUSTER_IP_DEPLOYMENT_LABELS }}
         {{ .name }}: {{ .value }}
       {{- end}}
     spec:
+      initContainers:
+      - name: wait-for-db
+        image: busybox
+        command: ['sh', '-c', 'sleep 10']
       containers:
       - name: quotes-api-container
         image: clusterminator/quotes-api:{{ .Values.quotesapi.DEPLOYMENT_IMAGE_VERSION }}

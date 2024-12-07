@@ -5,6 +5,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: quotes-db
+    {{- range .Values.database.CLUSTER_IP_DEPLOYMENT_LABELS }}
+      {{ .name }}: {{ .value }}
+    {{- end}}
   ports:
     - port: {{ .Values.database.CLUSTER_IP_PORT }}

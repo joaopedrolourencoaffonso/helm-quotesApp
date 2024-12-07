@@ -5,7 +5,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: addget-api
+  {{- range .Values.addget.NODEPORT_DEPLOYMENT_LABELS }}
+    {{ .name }}: {{ .value }}
+  {{- end}}
   ports:
     - port: {{ .Values.addget.NODEPORT_PORT }}
       targetPort: {{ .Values.addget.NODEPORT_PORT }}

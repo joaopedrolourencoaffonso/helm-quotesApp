@@ -6,13 +6,13 @@ spec:
   replicas: {{ .Values.database.DEPLOYMENT_REPLICAS }}
   selector:
     matchLabels:
-    {{- range .Values.database.DEPLOYMENT_LABELS }}
+    {{- range .Values.database.CLUSTER_IP_DEPLOYMENT_LABELS }}
       {{ .name }}: {{ .value }}
     {{- end}}
   template:
     metadata:
       labels:
-      {{- range .Values.database.DEPLOYMENT_LABELS }}
+      {{- range .Values.database.CLUSTER_IP_DEPLOYMENT_LABELS }}
         {{ .name }}: {{ .value }}
       {{- end}}
     spec:
