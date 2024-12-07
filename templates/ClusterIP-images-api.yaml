@@ -9,4 +9,6 @@ spec:
     {{ .name }}: {{ .value }}
   {{- end }}
   ports:
-    - port: {{ .Values.imagesapi.CLUSTER_IP_PORT }}
+    - protocol: TCP
+      port: {{ .Values.imagesapi.CLUSTER_IP_PORT }}
+      targetPort: {{ .Values.imagesapi.CLUSTER_IP_PORT }}

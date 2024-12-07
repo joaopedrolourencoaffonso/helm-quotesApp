@@ -69,5 +69,5 @@ imagesapi:
   DEPLOYMENT_PORT: 8080
   DEPLOYMENT_LABELS:
   - name: app
-    value: image-api
+    value: images-api
   
